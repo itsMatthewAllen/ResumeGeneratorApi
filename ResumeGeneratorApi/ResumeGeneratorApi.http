@@ -1,0 +1,6 @@
+@ResumeGeneratorApi_HostAddress = http://localhost:5161
+
+GET {{ResumeGeneratorApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
