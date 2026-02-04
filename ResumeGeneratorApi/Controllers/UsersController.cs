@@ -7,12 +7,19 @@ using ResumeGeneratorApi.Services;
 
 namespace ResumeGeneratorApi.Controllers
 {
+    /// <summary>
+    /// API endpoints for managing users.
+    /// </summary>
     [ApiController]
     [Route("api/users")]
     public class UsersController : ControllerBase
     {
         private readonly UserService _userService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UsersController"/> class.
+        /// </summary>
+        /// <param name="userService">The user service instance to handle business logic.</param>
         public UsersController(UserService userService)
         {
             _userService = userService;
@@ -22,7 +29,7 @@ namespace ResumeGeneratorApi.Controllers
         /// Retrieves a user by ID.
         /// </summary>
         /// <param name="id">The unique identifier of the user.</param>
-        /// <returns>The requested user.</returns>
+        /// <returns>The user object, if found; otherwise, null.</returns>
         [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

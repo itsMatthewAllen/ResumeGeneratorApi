@@ -14,16 +14,7 @@ namespace ResumeGeneratorApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.HasKey(u => u.Id);
-
-                entity.Property(u => u.Id).HasDefaultValueSql("uuid_generate_v4()");
-
-                entity.Property(u => u.CreatedAt).HasDefaultValueSql("now()");
-
-                entity.Property(u => u.UpdatedAt).HasDefaultValueSql("now()");
-            });
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ResumeDbContext).Assembly);
         }
     }
 }
