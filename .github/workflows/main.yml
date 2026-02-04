@@ -1,0 +1,33 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      # compose connection string from individual secrets
+      CONNECTION_STRING: Host=${{ secrets.DB_HOST }};Database=resume_generator;Username=${{ secrets.DB_USER }};Password=${{ secrets.DB_PASSWORD }}
+
+    steps:
+      - uses: action/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release
+
+      - name: Run tests
+        env:
+          ConnectionStrings.__DefaultConnection: ${{ env.CONNECTION_STRING }}
+        run: dotnet test
